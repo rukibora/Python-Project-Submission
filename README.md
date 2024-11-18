@@ -1,111 +1,76 @@
-# Python-Project-Submission
-Movie Recommender App
+Movie Recommender Application
 
-This Python project is a movie recommender application. The app allows users to input a movie genre (such as action, comedy, drama, etc.), fetches movie data from the OMDB API, saves the data into a CSV file using Pandas, and recommends 1 random movie from the selected genre. Each recommended movie is provided with its year of release.
+Overview
+
+The Movie Recommender application is a simple GUI-based tool built using Python's Tkinter library, which allows users to get personalized movie recommendations based on their mood, the audience they'll be watching with, and the preferred movie duration. The application interacts with the OMDb API to fetch movie data, such as titles, release years, posters, and runtime details, and then recommends a movie based on the user's inputs.
+
+Currently, the application uses a free OMDb API to fetch movie information. In future updates, I aim to expand the tool to incorporate a paid API that provides keyword-based movie data tailored to selected audience types, allowing for even more personalized recommendations.
 
 Features
 
-User Input: Users can input a movie genre (e.g., action, comedy, drama).
-Data Fetching: The app fetches movie data using the OMDB API.
-CSV Saving with Pandas: The fetched movie data is saved in a CSV file using the Pandas library for better data manipulation.
-Movie Recommendation: The app randomly selects 1 movie from the fetched list and displays it with its year of release.
-Error Handling: The app handles cases like invalid genres and failed data fetching gracefully.
+Mood-Based Movie Recommendations: Users can choose their mood, such as "Happy", "Excited", "Romantic", etc., which influences the genres of movies recommended.
+
+Audience-Based Filters: The user selects with whom they will watch the movie (Family, Friends, Partner, or Alone), which further refines the movie suggestions based on suitable genres for each audience type.
+
+Movie Duration Filter: The application allows users to choose the length of the movie they prefer (Short, Medium, or Long), filtering out movies that do not match the selected runtime.
+
+Movie Posters and Titles: Along with the movie title and year, the app displays a movie poster for visual reference.
+
+User-Friendly GUI: Built with Tkinter, the application is equipped with a simple interface to facilitate ease of use.
+
+Current API Setup
+
+The movie data is fetched using the OMDb API. The following parameters are used to request movie data:
+
+Mood: Selected moods influence the genres of movies recommended.
+Audience: Whether the user is watching alone, with family, friends, or a partner, the genre filters are adjusted.
+Duration: Users can filter movies by their runtime (Short, Medium, or Long).
+
+The movie data is fetched by making an HTTP request to the OMDb API, using the following endpoint:
+http://www.omdbapi.com/?apikey={API_KEY}&s=movie&type=movie&genre={selected_genre}&page=10
+
+The application then filters out movies that don't meet the selected duration criteria and randomly selects one movie to display.
+
+Future Enhancements
+
+Paid API Integration: In future versions, I plan to integrate a paid API that offers more advanced features, such as keyword-based movie recommendations tailored to specific audiences. This will allow for more precise movie suggestions based on detailed user preferences.
+
+Advanced Recommendation Algorithms: The system may incorporate machine learning or additional user inputs to improve the accuracy and personalization of movie suggestions.
+
+Dependencies
+
+The application uses the following Python libraries:
+
+pandas: For data manipulation and handling genre mappings.
+
+tkinter: For creating the graphical user interface.
+
+requests: To make HTTP requests to the OMDb API.
+
+PIL (Pillow): For handling image loading and resizing of movie posters.
+
+random: For randomly selecting a movie from the fetched list.
+
+io: To handle image data in a format suitable for Tkinter.
 
 
-Requirements
+Ensure that you have the necessary dependencies installed:
 
-This project requires the following Python libraries:
-requests: For making HTTP requests to the OMDB API.
-random: For selecting random movies.
-pandas: For saving the fetched movie data into a CSV file and performing data manipulations.
+pip install pandas requests pillow
 
+Usage
 
-Install the required libraries:
+1. Select Mood: Choose how you want to feel from options like Happy, Excited, etc.
+2. Select Audience: Choose whether you're watching with Family, Friends, Partner, or Alone.
+3. Select Duration: Pick the preferred duration (Short, Medium, or Long).
+4. Get Recommendation: Click the "Get Recommendation" button to receive a movie suggestion.
 
-You can install the required libraries using pip:
-pip install requests pandas
-
-Setup
-
-1. Clone or download the repository to your local machine.
-2. Open the project folder in your terminal or command prompt.
-3. Create a Python script (e.g., movie_picker.py).
-4. Copy and paste the provided Python code into your script.
-
-
-
-OMDB API Key
-
-To use the OMDB API, you'll need an API key. You can get a free API key by registering on the OMDB API website.
-Once you have your API key, replace b81f1805 in the code with your own API key.
-
-How It Works
-
-1. Input Genre: The user is prompted to input a movie genre (e.g., action, comedy, drama).
-2. Fetch Movies: The app sends a request to the OMDB API to get a list of movies for the given genre.
-3. Save Data with Pandas: The fetched movie data is saved into a CSV file named <genre>_movies.csv, containing the title, year, and IMDb ID of each movie. Pandas is used to handle data and write it to CSV for efficiency and easy management.
-4. Recommend Movie: The app selects 1 random movie from the fetched list using the random library and displays the title and the year of the picked movie.
-
-Example Usage
-
-Please enter a movie genre (e.g., action, comedy, drama): comedy
-comedy movies are being fetched...
-
-Movies saved to comedy_movies.csv.
-
-Here is your movie recommendation:
-The Hangover (2009)
-   
-
-Files Generated
-
-The app generates a CSV file named <genre>_movies.csv that contains the movie data with the following columns:
-Title: The title of the movie.
-Year: The release year of the movie.
-IMDB ID: The IMDb ID of the parsed movies.
-
-
-Example of CSV file (comedy_movies.csv):
-
-Title,Year,IMDB ID
-The King of Comedy,1982,tt0085794
-Fear City: A Family-Style Comedy,1994,tt0109440
-The Broken Hearts Club: A Romantic Comedy,2000,tt0222850
-...
-
-Why Pandas?
-
-Pandas is used in this project for the following reasons:
-1. Efficient Data Handling: With Pandas, we can easily manipulate and manage data, such as cleaning, filtering, and transforming.
-2. CSV Handling: Pandas provides a simple and efficient way to save data into CSV files using to_csv(), ensuring the data is well-organized and easy to manage.
-3. Dataframe Structure: Using Pandas allows us to organize movie data into a structured dataframe, making it easy to perform operations like sorting or filtering in the future.
-
-Error Handling
-
-Invalid Genre: If the user enters a genre that is not supported, the app will print a message asking the user to choose a valid genre.
-API Request Failure: If the API request fails (e.g., due to network issues or invalid API key), the app will notify the user of the error.
-
-Known Issues
-
-If the OMDB API limit is exceeded (in case of multiple requests within a short period), the app may not be able to fetch new data. You can wait for a while or upgrade to a premium API key for higher limits.
-The app currently supports a limited number of genres. To extend the functionality, you can update the list of valid genres.
-
-Future Enhancements:
-
-Implement multiple API support (e.g., support for both OMDb and TMDb).
-Add more advanced user inputs (e.g., multiple genres, movie rating filters).
-Enhance the movie suggestion algorithm (e.g., based on movie ratings or year).
+The selected movie’s title, year, and poster will be displayed within the app.
 
 License
 
-This project is open-source and available under the MIT License.
+This project is open-source and available under the MIT License. Feel free to contribute to its development or use it as a base for further enhancements.
 
+Contact
 
----
-
-Notes:
-
-Ensure your API key is correctly placed in the code before running it.
-The project will generate a CSV file in the working directory for each genre you choose.
-
-
+For questions or feedback, feel free to reach out.
